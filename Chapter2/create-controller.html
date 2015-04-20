@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="notesApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello AngularJS</title>
+</head>
+<body ng-controller="MainCtrl">
+
+  <h1> Hello {{ 1+1 }}sd time AngularJS </h1>
+
+  <script src="js/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('notesApp', []).controller('MainCtrl', [function(){
+    //Controller-specific logic
+    console.log('MainCtrl has been created');
+  }]);
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="notesApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Notes App - ng-repeat helper variables</title>
+    <style type="text/css">
+      .note {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body ng-controller="MainCtrl as ctrl">
+
+    <div ng-repeat="note in ctrl.notes">
+      <div>First Element: {{ $first }}</div>
+      <div>Middle Element: {{ $middle }}</div>
+      <div>Last Element: {{ $last }}</div>
+      <div>Index of Element: {{ $index}}</div>
+      <div>At Even Position: {{ $even }}</div>
+      <div>At Odd Oosition: {{ $odd }}</div>
+
+      <span class="label note"> {{note.label}} </span>
+      <span class="status note" ng-bind="note.done"></span>
+
+    </div>
+
+
+    <script src="js/angular.js"></script>
+    <script type="text/javascript">
+      angular.module('notesApp', []).controller('MainCtrl', [function(){
+        // Variables declared using the 'this' keyword will be available
+        // in the UI (View) and variables declared with 'var' keyword will
+        // be available only inside the controller
+        var self = this;
+        self.notes = [
+          { id: 1, label: 'First Note', done: false },
+          { id: 2, label: 'Second Note', done: false },
+          { id: 3, label: 'Done Note', done: true },
+          { id: 4, label: 'Last Note', done: false }
+        ];
+
+      }]); // End controller
+    </script>
+  </body>
+</html>

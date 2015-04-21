@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="notesApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Notes app</title>
+  </head>
+  <body ng-controller="MainCtrl as ctrl">
+
+    <form ng-submit="ctrl.submit1()">
+      <input  type="text" ng-model="ctrl.username" />
+      <input  type="password" ng-model="ctrl.password" />
+      <input  type="submit" value="submit" />
+    </form>
+
+    <form ng-submit="ctrl.submit2()">
+      <input  type="text" ng-model="ctrl.user.username" />
+      <input  type="password" ng-model="ctrl.user.password" />
+      <input  type="submit" value="submit" />
+    </form>
+
+    <script src="../global_js/angular.js"></script>
+    <script type="text/javascript">
+      angular.module('notesApp', []).controller('MainCtrl', [function(){
+
+        var self = this;
+
+        self.submit1 = function(){
+          // create a User object to send to the server
+          var user = { username: self.username, password: self.password };
+          console.log('First form submit with ', user);
+        };
+
+        self.submit2 = function(){
+          // in this case, the User object is automatically created by AngularJS
+          console.log('First form submit with ', self.user);
+        };
+
+      }]); // End controller
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Notes app</title>
+  </head>
+  <body ng-controller="MainCtrl as mainCtrl">
+
+
+    <h2>Hello Controllers!</h2>
+    <button ng-click="mainCtrl.open('first')">Open First</button>
+    <button ng-click="mainCtrl.open('second')">Open Second</button>
+    <div ng-switch on="mainCtrl.tab">
+
+      <div ng-switch-when="first">
+        <div>
+          <h3>First Tab</h3>
+          <ul>
+            <li ng-repeat="item in mainCtrl.items()">
+              {{ item.label }}
+            </li>
+          </ul>
+
+          <button ng-click="mainCtrl.add()">Add More Itens - First tab</button>
+        </div>
+      </div>
+
+      <div ng-switch-when="second">
+        <div>
+          <h3>Second Tab</h3>
+          <ul>
+            <li ng-repeat="item in mainCtrl.items()">
+              <span ng-bind="item.label"></span>
+            </li>
+          </ul>
+
+          <button ng-click="mainCtrl.add()">Add More Itens</button>
+        </div>
+      </div>
+    </div>
+    <script src="../../global_js/angular.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

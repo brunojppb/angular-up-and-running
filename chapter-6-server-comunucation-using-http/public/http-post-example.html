@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>$http POST Example</title>
+  </head>
+  <body ng-controller="MainCtrl as controller">
+    <h1>Create a new institution</h1>
+    <div>
+      <form name="addForm" ng-submit="controller.add()">
+        <input type="text" placeholder="Name" ng-model="controller.institution.name" required/>
+        <input type="text" placeholder="Acronym" ng-model="controller.institution.acronym" required/>
+        <textarea ng-model="controller.institution.description"></textarea>
+        <input type="submit" value="submit" ng-disabled="addForm.$invalid">
+      </form>
+    </div>
+    <br />
+    <h2>Hello Institutions</h2>
+    <div ng-repeat="institution in controller.institutions" class="institution">
+      <div>Name: <span ng-bind="institution.name"></span></div>
+      <div> - <span ng-bind="institution.acronym"></span></div>
+      <br />
+    </div>
+
+
+
+    <script src="../../global_js/angular.js"></script>
+    <script type="text/javascript">
+      angular.module('MyApp', [])
+        .controller('MainCtrl', ['$http', function($http){
+          var self = this;
+
+          $http.defaults.headers.post = {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+          };
+
+          self.institutions = [];
+          var fecthInstitutions = function(){
+            $http.get('http://api.ifpb.dev/institutions').then(function(response){
+              self.institutions = response.data.institutions;
+              }, function(errorResponse){
+              console.log('Error while fetching institutions');
+            });
+          };
+
+          fecthInstitutions();
+
+          self.institution = {};
+          self.add = function(){
+            var inst = { institution: { name: 'test', acronym: 'test', description: 'test' } };
+            $http.post('http://api.ifpb.dev/institutions', inst)
+              .then(fecthInstitutions)
+              .then(function(response){
+                self.institution = {};
+              });
+          };
+
+        }]); // End Controller
+
+    </script>
+  </body>
+</html>

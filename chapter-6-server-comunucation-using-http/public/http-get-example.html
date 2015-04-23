@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>$http GET Example</title>
+  </head>
+  <body ng-controller="MainCtrl as controller">
+
+    <h2>Hello Institutions</h2>
+    <div ng-repeat="institution in controller.institutions" class="institution">
+      <div>Name: <span ng-bind="institution.name"></span></div>
+      <div> - <span ng-bind="institution.acronym"></span></div>
+      <br />
+    </div>
+
+    <script src="../../global_js/angular.js"></script>
+    <script type="text/javascript">
+      angular.module('MyApp', [])
+        .controller('MainCtrl', ['$http', function($http){
+          var self = this;
+          self.institutions = [];
+          $http.get('http://api.ifpb.dev/institutions').then(function(response){
+            self.institutions = response.data.institutions;
+          }, function(errorResponse){
+            console.log('Error while fetching institutions');
+            console.log('Error: ' + errorResponse);
+          });
+
+        }]);
+
+    </script>
+  </body>
+</html>

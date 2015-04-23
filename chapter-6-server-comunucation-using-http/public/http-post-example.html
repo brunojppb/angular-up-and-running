@@ -48,8 +48,7 @@
 
           self.institution = {};
           self.add = function(){
-            var inst = { institution: { name: 'test', acronym: 'test', description: 'test' } };
-            $http.post('http://api.ifpb.dev/institutions', inst)
+            $http.post('http://api.ifpb.dev/institutions', {institution: self.institution})
               .then(fecthInstitutions)
               .then(function(response){
                 self.institution = {};

@@ -49,7 +49,7 @@
           self.institution = {};
           self.add = function(){
             $http.post('http://api.ifpb.dev/institutions', {institution: self.institution})
-              .then(fecthInstitutions)
+              .then(fecthInstitutions())
               .then(function(response){
                 self.institution = {};
               });

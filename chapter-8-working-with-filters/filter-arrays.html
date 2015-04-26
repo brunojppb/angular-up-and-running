@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Filter Arrays</title>
+</head>
+<body ng-app="FiltersApp">
+  <div ng-controller="FilterCtrl as ctrl">
+    <button ng-click="ctrl.currentFilter = 'string'" >Filter with String</button>
+    <button ng-click="ctrl.currentFilter = 'object'" >Filter with Object</button>
+    <button ng-click="ctrl.currentFilter = 'function'" >Filter with function</button>
+
+    Filter Text
+
+    <input type="text" ng-model="ctrl.filterOptions['string']"/>
+    Show Done Only
+    <input  type="checkbox" ng-model="ctrl.filterOptions['object'].done"/>
+    <ul>
+      <li ng-repeat="note in ctrl.notes |
+                     filter:ctrl.filterOptions[ctrl.currentFilter] |
+                     orderBy:ctrl.sortOrder |
+                     limitTo:5" >
+      {{ note.label }} - {{ note.type }} - {{ note.done }}
+      </li>
+    </ul>
+  </div>
+  <script src="../global_js/angular.js"></script>
+  <script type="text/javascript">
+  angular.module('FiltersApp', [])
+    .controller('FilterCtrl', [function(){
+      var self = this;
+      self.notes = [
+        { label: 'FC TUDO', type: 'task', done: true },
+        { label: 'FT TUDO', type: 'chore', done: false },
+        { label: 'SC TUDO', type: 'fun', done: true },
+        { label: 'TC TUDO', type: 'task', done: false }
+      ];
+
+      self.sortOrder = ['+type', '-label'];
+
+      this.filterOptions = {
+        "string": '',
+        "object": {done: false, label: 'C'},
+        "function": function(note){
+          return note.type === 'task' && note.done == true;
+        }
+      };
+
+      this.currentFilter = 'string';
+
+    }]);
+  </script>
+</body>
+</html>
